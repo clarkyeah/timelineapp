@@ -1,3 +1,0 @@
-/Users/yetao/Desktop/workspace/testdev/TimelineApp/build/CMakeFiles/TimelineApp.dir
-/Users/yetao/Desktop/workspace/testdev/TimelineApp/build/CMakeFiles/edit_cache.dir
-/Users/yetao/Desktop/workspace/testdev/TimelineApp/build/CMakeFiles/rebuild_cache.dir
