@@ -77,19 +77,41 @@ void TimelineWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void TimelineWidget::createTimeline()
 {
+     int Scale = 4;
+     float labelSpacing = 10;
+     float tickSpacing = 5;
      int maxMinutes = m_maxTime.hour() * 60 + m_maxTime.minute();
-     int timelineWidth = maxMinutes * 4;
+     int timelineWidth = maxMinutes * Scale;
     
     // Draw the timeline
     auto timeline = new QGraphicsLineItem(0, 0, timelineWidth, 0);
     m_scene.addItem(timeline);
 
     // Add time step labels
-    int stepCount = maxMinutes / 10;
+    int stepCount = maxMinutes / labelSpacing;
     for (int i = 0; i <= stepCount; ++i) {
-        auto label = new QGraphicsTextItem(QString::number(i * 10));
-        label->setPos(i * 40 - label->boundingRect().width() / 2, -30);
-        m_scene.addItem(label);
+        int hours = int((labelSpacing * i) / 60);
+        int remainingMinutes = int((labelSpacing * i)) % 60;
+        QString tickLabel = QString("%1:%2").arg(hours, 2, 10, QChar('0')).arg(remainingMinutes, 2, 10, QChar('0'));
+
+        QGraphicsTextItem* textItem = new QGraphicsTextItem(tickLabel);
+        textItem->setPos(i * Scale * labelSpacing, 0);
+        textItem->setFont(QFont("Arial", 8));
+        textItem->setDefaultTextColor(Qt::black);
+
+        m_scene.addItem(textItem);
+
+        QGraphicsLineItem *tickLine = new QGraphicsLineItem(Scale * labelSpacing * i, -10, Scale * labelSpacing * i,
+                                                            10);
+        tickLine->setPen(QPen(Qt::black, 1));
+        m_scene.addItem(tickLine);
+
+        for (float j = i; j < i + 1; j = j+ 0.5) {
+            QGraphicsLineItem *tickLine = new QGraphicsLineItem(Scale * tickSpacing * j, -5, Scale * tickSpacing * j,
+                                                                5);
+            tickLine->setPen(QPen(Qt::black, 1));
+            m_scene.addItem(tickLine);
+        }
     }
 }
 
