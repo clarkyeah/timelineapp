@@ -13,7 +13,7 @@ class TimelineWidget : public QGraphicsView
 public:
     explicit TimelineWidget(QWidget *parent = nullptr);
 
-    void readEventsFromFile(const QString &fileName);
+    void readEventsFromFil(const QString &fileName);
     void fitInView();
 
 protected:
